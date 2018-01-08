@@ -21,19 +21,16 @@ public class Function_01_Test {
     // TODO le nom sera de la forme "last_<ENTIER>"
     // TODO l'age sera de la forme "<ENTIER>"
     // TODO le mot de passe sera de la forme "pass_<ENTIER>"
-    private Function<Integer, Person> intToPerson = null;
-    
-	private Person intToPerson(Integer entier) {
-		new Person("first_" + entier, "last_" + entier, entier, "pass_" + entier)
-		return ;
-	}
+    private Function<Integer, Person> intToPerson = integer -> {
+    	return new Person("first_" + integer, "last_" + integer, integer, "pass_" + integer);
+    };
     // end::intToPerson[]
 
     @Test
     public void test_intToPerson() throws Exception {
 
         // TODO invoquer la fonction intToPerson avec en paramètre l'entier 10.
-        Person result = intToPerson(10);
+        Person result = intToPerson.apply(10);
 
         assert result.getFirstname().equals("first_10");
         assert result.getLastname().equals("last_10");
@@ -47,7 +44,12 @@ public class Function_01_Test {
     // TODO Compléter la définition de cette fonction
     // TODO la propriété owner est valorisé avec la personne en paramètre
     // TODO la propriété balance est valorisé à 1000
-    private Function<Person, Account> personToAccount = null;
+    private Function<Person, Account> personToAccount = person -> {
+    	Account account = new Account();
+    	account.setBalance(1000);
+    	account.setOwner(person);
+    	return account;
+    };
     // end::personToAccount[]
 
     @Test
@@ -56,7 +58,7 @@ public class Function_01_Test {
         Person person = new Person("Jules", "France", 10, "pass");
 
         // TODO invoquer la fonction personToAccount
-        Account result = null;
+        Account result = personToAccount.apply(person);
 
         assert result.getOwner().equals(person);
         assert result.getBalance().equals(1000);
@@ -68,7 +70,7 @@ public class Function_01_Test {
     // tag::intToAccountWithCompose[]
     // TODO Compléter la définition de cette fonction
     // TODO Utiliser la méthode compose pour réutiliser les fonctions intToPerson et personToAccount
-    private Function<Integer, Account> intToAccountWithCompose = null;
+    private Function<Integer, Account> intToAccountWithCompose = personToAccount.compose(intToPerson);
     // end::intToAccountWithCompose[]
 
 
@@ -76,7 +78,7 @@ public class Function_01_Test {
     public void test_intToAccount_with_Compose() throws Exception {
 
         // TODO invoquer la fonction intToAccountWithCompose avec l'entier 10
-        Account result = null;
+        Account result = intToAccountWithCompose.apply(10);
 
         assert result.getOwner().getFirstname().equals("first_10");
         assert result.getBalance().equals(1000);
@@ -87,14 +89,14 @@ public class Function_01_Test {
     // tag::intToAccountWithAndThen[]
     // TODO Compléter la définition de cette fonction
     // TODO Utiliser la méthode andThen pour réutiliser les fonctions intToPerson et personToAccount
-    private Function<Integer, Account> intToAccountWithAndThen = null;
+    private Function<Integer, Account> intToAccountWithAndThen = intToPerson.andThen(personToAccount);
     // end::intToAccountWithAndThen[]
 
     @Test
     public void test_intToAccount_with_AndThen() throws Exception {
 
         // TODO invoquer la fonction intToAccountWithAndThen avec l'entier 11
-        Account result = null;
+        Account result = intToAccountWithAndThen.apply(11);
 
         assert result.getOwner().getFirstname().equals("first_11");
         assert result.getBalance().equals(1000);
