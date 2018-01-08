@@ -22,13 +22,18 @@ public class Function_01_Test {
     // TODO l'age sera de la forme "<ENTIER>"
     // TODO le mot de passe sera de la forme "pass_<ENTIER>"
     private Function<Integer, Person> intToPerson = null;
+    
+	private Person intToPerson(Integer entier) {
+		new Person("first_" + entier, "last_" + entier, entier, "pass_" + entier)
+		return ;
+	}
     // end::intToPerson[]
 
     @Test
     public void test_intToPerson() throws Exception {
 
         // TODO invoquer la fonction intToPerson avec en paramètre l'entier 10.
-        Person result = null;
+        Person result = intToPerson(10);
 
         assert result.getFirstname().equals("first_10");
         assert result.getLastname().equals("last_10");
