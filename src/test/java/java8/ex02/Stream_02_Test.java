@@ -24,7 +24,7 @@ public class Stream_02_Test {
         List<Order> orders = new Data().getOrders();
 
         // Trouver la liste des clients ayant déjà passés une commande
-        List<Customer> result = null;
+        List<Customer> result = orders.stream().map(Order::getCustomer).distinct().collect(Collectors.toList());
 
         assertThat(result, hasSize(2));
     }
@@ -36,7 +36,9 @@ public class Stream_02_Test {
 
         // TODO calculer les statistiques sur les prix des pizzas vendues
         // TODO utiliser l'opération summaryStatistics
-        IntSummaryStatistics result = null;
+        IntSummaryStatistics result = orders.stream()
+        		.flatMap(order -> order.getPizzas().stream())
+        		.collect(Collectors.summarizingInt(Pizza::getPrice));
 
 
         assertThat(result.getSum(), is(10900L));
