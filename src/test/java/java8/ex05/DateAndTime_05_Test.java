@@ -17,14 +17,14 @@ public class DateAndTime_05_Test {
     @Test
     public void test_duration() throws Exception {
 
-        // TODO créer une heure à 12h30
-        LocalTime time1 = null;
+        // TODO créer une heure à 12h30m00s
+        LocalTime time1 = LocalTime.of(12, 30, 00);
 
-        // TODO créer une heure à 16h32
-        LocalTime time2 = null;
+        // TODO créer une heure à 16h32m15s
+        LocalTime time2 = LocalTime.of(16, 32, 15);
 
         // TODO créer une durée (classe java.time.Duration) qui représente le temps entre les heures précédentes
-        Duration duration = null;
+        Duration duration = Duration.between(time1, time2);
 
         assertThat(duration.toMinutes(), is(242L));
         assertThat(duration.toHours(), is(4L));
