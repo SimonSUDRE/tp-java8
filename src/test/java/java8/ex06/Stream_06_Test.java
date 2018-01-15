@@ -93,9 +93,9 @@ public class Stream_06_Test {
     // TODO visualiser les temps d'exécution
     @Test
     public void monitor_imperativeSum_vs_iterateSum_vs_parallelIterateSum() {
-        Logger.getAnonymousLogger().info("imperativeSum => " + monitor(fn, n)" ms");
-        Logger.getAnonymousLogger().info("iterateSum => " + monitor(fn, n)" ms");
-        Logger.getAnonymousLogger().info("parallelIterateSum => " + monitor(fn, n) " ms");
+        Logger.getAnonymousLogger().info("imperativeSum => " + monitor(() -> imperativeSum(n), n) + " ms");
+        Logger.getAnonymousLogger().info("iterateSum => " + monitor(() -> imperativeSum(n), n) + " ms");
+        Logger.getAnonymousLogger().info("parallelIterateSum => " + monitor(() -> parallelIterateSum(n), n) + " ms");
     }
 
     // Quel résultat obtenez-vous ?
@@ -147,11 +147,11 @@ public class Stream_06_Test {
 
     @Test
     public void monitor_imperativeSum_vs_iterateSum_vs_parallelIterateSum_vs_rangeSum_vs_rangeParallelSum() {
-        Logger.getAnonymousLogger().info("imperativeSum => " + monitor(fn, n) " ms");
-        Logger.getAnonymousLogger().info("iterateSum => " + monitor(fn, n) " ms");
-        Logger.getAnonymousLogger().info("parallelIterateSum => " + monitor(fn, n) " ms");
-        Logger.getAnonymousLogger().info("rangeSum => " + monitor(fn, n)" ms");
-        Logger.getAnonymousLogger().info("rangeParallelSum => " monitor(fn, n) + " ms");
+        Logger.getAnonymousLogger().info("imperativeSum => " + monitor(() -> fn, 10L) + " ms");
+        Logger.getAnonymousLogger().info("iterateSum => " + monitor(() -> fn, 10L) + " ms");
+        Logger.getAnonymousLogger().info("parallelIterateSum => " + monitor(() -> fn, 10L) + " ms");
+        Logger.getAnonymousLogger().info("rangeSum => " + monitor(() -> fn.apply(), 10L) + " ms");
+        Logger.getAnonymousLogger().info("rangeParallelSum => " + monitor(() -> fn, 10L) + " ms");
     }
 
     // Quel résultat obtenez-vous ?
